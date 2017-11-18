@@ -17,6 +17,7 @@ void Init_four_way_merge(void);
 element four_way_merge(int list[4]);//return smallest number and location
 void test_four_way_merge(void);
 void four_way_merge2(char *orginalFile, char *tempFile, int Run_Size);
+enum four_way_merge2{Run_Max=Generated_Random_Number/Initial_Runsize+7};
 void test_four_way_merge2(void);
 void four_way_merge3(void);
 int main(void)
@@ -105,7 +106,7 @@ void readRun(void)
 {
 	FILE *f = fopen("original.bin", "rb");
 	int i;
-	for (i = 0; i < 200000; i++)
+	for (i = 0; i < Generated_Random_Number; i++)
 	{
 		int n;
 		fread(&n, sizeof(int), 1, f);
@@ -175,20 +176,21 @@ void test_four_way_merge(void)
 	test=four_way_merge(list);
 	printf("%d %d", test.data,test.loc);
 }
-void four_way_merge2(char *orginalFile,char *tempFile,int Run_Size)//
+void four_way_merge2(char *orginalFile,char *tempFile,int Run_Size)
 {
 	FILE *Temp_FIle = fopen(tempFile, "wb");
 	int i, Run_Number = Generated_Random_Number / Run_Size;
-	FILE **file;
-	file = (FILE**)malloc(sizeof(FILE)*(Run_Number+4));//list four file will be used to check last position
+	FILE *file[Run_Max];//last four filePointer will be used to check last position
 	//Initialize filePointer
 	for (i = 0; i < Run_Number; i++)
 	{
 		file[i] = fopen(orginalFile, "rb");
 		fseek(file[i], i*(Run_Size+1)*sizeof(int), 0);
 	}
-	for (i = Run_Number; i < Run_Number + 4; i++)
+	for (i = Run_Number; i < Run_Number + 7; i++)
+	{
 		file[i] = NULL;
+	}
 	int Merge_Count = 0;
 	//mergePass
 	while(1)
