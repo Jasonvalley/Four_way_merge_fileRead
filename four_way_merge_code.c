@@ -106,10 +106,11 @@ void readRun(void)
 {
 	FILE *f = fopen("original.bin", "rb");
 	int i;
-	for (i = 0; i < Generated_Random_Number; i++)
+	while (1)
 	{
 		int n;
 		fread(&n, sizeof(int), 1, f);
+		if (n == -1)	break;
 		printf("%d ", n);
 	}
 	fclose(f);
@@ -180,7 +181,7 @@ void four_way_merge2(char *orginalFile,char *tempFile,int Run_Size)
 {
 	FILE *Temp_FIle = fopen(tempFile, "wb");
 	int i, Run_Number = Generated_Random_Number / Run_Size;
-	FILE *file[Run_Max];//last four filePointer will be used to check last position
+	FILE *file[Run_Max];//last seven filePointer will be used to check last position
 	//Initialize filePointer
 	for (i = 0; i < Run_Number; i++)
 	{
