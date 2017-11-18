@@ -175,7 +175,7 @@ void test_four_way_merge(void)
 	test=four_way_merge(list);
 	printf("%d %d", test.data,test.loc);
 }
-void four_way_merge2(char *orginalFile,char *tempFile,int Run_Size)
+void four_way_merge2(char *orginalFile,char *tempFile,int Run_Size)//
 {
 	FILE *Temp_FIle = fopen(tempFile, "wb");
 	int i, Run_Number = Generated_Random_Number / Run_Size;
